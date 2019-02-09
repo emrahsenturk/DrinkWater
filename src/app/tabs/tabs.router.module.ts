@@ -8,11 +8,11 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'drinkWater',
         children: [
           {
             path: '',
-            loadChildren: '../tab1/tab1.module#Tab1PageModule'
+            loadChildren: '../drinkWater/drinkWater.module#DrinkWaterPageModule'
           }
         ]
       },
@@ -36,18 +36,18 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/drinkWater',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/drinkWater',
     pathMatch: 'full'
   }
 ];
-
+ 
 @NgModule({
   imports: [
     RouterModule.forChild(routes)
