@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonSelect, ToastController  } from '@ionic/angular'
 import { Chart } from 'chart.js';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
   selector: 'app-drinkWater',
@@ -9,7 +10,9 @@ import { Chart } from 'chart.js';
 })
 export class DrinkWaterPage {
 
-  constructor(public toastController: ToastController) {}
+  constructor(
+    public toastController: ToastController,
+    public db: AngularFireDatabase) {}
 
   customSelectDrinkHeaderOptions: any = {
     header: 'Ne kadar su içtiniz?',
@@ -58,13 +61,40 @@ export class DrinkWaterPage {
     });
   }
 
+  addDrinkValue(value:Number){
+    let drinkValue = {
+      UserId: 1,
+      Value: value
+    };
+    this.db.list('DrinkValues').push(drinkValue);
+    this.showSuccessToast('Kaydedildi...');
+  }
+
   openSelectOtherDrink(){
     this.selectOtherDrinkValues.open();
   }
 
-  async changeSelectedDrinkValue(){
+  changeSelectedDrinkValue(){
+    if(this.selectedChoice == " "){
+      return;
+    }
+
+    let drinkValue = {
+      UserId: 1,
+      Value: this.selectedChoice
+    };
+    this.db.list('DrinkValues').push(drinkValue);
+    this.showSuccessToast('Kaydedildi...');
+    this.selectedChoice = " ";
+  }
+
+  openTodayDrinkList(){
+    this.showSuccessToast('Bugün girilen su listesi sayfası açılacak.');
+  }
+
+  async showSuccessToast(message:string){
     const toast = await this.toastController.create({
-      message: 'Kaydedildi...',
+      message: message,
       showCloseButton: true,
       position: 'top',
       closeButtonText: 'Kapat',
@@ -73,7 +103,6 @@ export class DrinkWaterPage {
       color: "primary"
     });
     toast.present();
-    this.selectedChoice = "";
   }
 
 }
