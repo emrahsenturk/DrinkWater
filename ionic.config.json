@@ -1,6 +1,8 @@
 {
   "name": "DrinkWater",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "id": "e76d5a91"
 }

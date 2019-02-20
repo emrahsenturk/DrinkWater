@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonSelect, ToastController  } from '@ionic/angular'
 import { Chart } from 'chart.js';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { Device } from '@ionic-native/device/ngx';
 
 @Component({
   selector: 'app-drinkWater',
@@ -12,7 +13,10 @@ export class DrinkWaterPage {
 
   constructor(
     public toastController: ToastController,
-    public db: AngularFireDatabase) {}
+    public db: AngularFirestore,
+    public device: Device) {}
+
+  dbList: any;
 
   customSelectDrinkHeaderOptions: any = {
     header: 'Ne kadar su içtiniz?',
@@ -63,10 +67,12 @@ export class DrinkWaterPage {
 
   addDrinkValue(value:Number){
     let drinkValue = {
-      UserId: 1,
-      Value: value
+      UserId: this.device.uuid,
+      Value: value,
+      Date: new Date()
     };
-    this.db.list('DrinkValues').push(drinkValue);
+    this.dbList = this.db.collection<any>('DrinkValues');
+    this.dbList.add(drinkValue);
     this.showSuccessToast('Kaydedildi...');
   }
 
@@ -80,10 +86,12 @@ export class DrinkWaterPage {
     }
 
     let drinkValue = {
-      UserId: 1,
-      Value: this.selectedChoice
+      UserId: this.device.uuid,
+      Value: this.selectedChoice,
+      Date: new Date()
     };
-    this.db.list('DrinkValues').push(drinkValue);
+    this.dbList = this.db.collection<any>('DrinkValues');
+    this.dbList.add(drinkValue);
     this.showSuccessToast('Kaydedildi...');
     this.selectedChoice = " ";
   }

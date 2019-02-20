@@ -10,8 +10,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule, FirestoreSettingsToken } from 'angularfire2/firestore';
 import { FIREBASE_CONFIG } from './Firebase.Credential';
+import { Device } from '@ionic-native/device/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,12 +22,14 @@ import { FIREBASE_CONFIG } from './Firebase.Credential';
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    AngularFireDatabaseModule
+    AngularFirestoreModule,
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    Device,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: FirestoreSettingsToken, useValue: {} }
   ],
   bootstrap: [AppComponent]
 })
