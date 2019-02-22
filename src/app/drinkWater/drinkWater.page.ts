@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonSelect, ToastController  } from '@ionic/angular'
+import { IonSelect, ToastController, AlertController, NavController  } from '@ionic/angular';
 import { Chart } from 'chart.js';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Device } from '@ionic-native/device/ngx';
@@ -12,9 +12,11 @@ import { Device } from '@ionic-native/device/ngx';
 export class DrinkWaterPage {
 
   constructor(
+    public navController: NavController,
     public toastController: ToastController,
     public db: AngularFirestore,
-    public device: Device) {}
+    public device: Device,
+    public alertController: AlertController) {}
 
   dbList: any;
 
@@ -65,7 +67,11 @@ export class DrinkWaterPage {
     });
   }
 
-  addDrinkValue(value:Number){
+  async addDrinkValue(value:Number){
+    let alert = await this.confirm(value);
+  }
+
+  saveDrink(value){
     let drinkValue = {
       UserId: this.device.uuid,
       Value: value,
@@ -80,24 +86,42 @@ export class DrinkWaterPage {
     this.selectOtherDrinkValues.open();
   }
 
-  changeSelectedDrinkValue(){
+  async changeSelectedDrinkValue(){
     if(this.selectedChoice == " "){
       return;
     }
 
-    let drinkValue = {
-      UserId: this.device.uuid,
-      Value: this.selectedChoice,
-      Date: new Date()
-    };
-    this.dbList = this.db.collection<any>('DrinkValues');
-    this.dbList.add(drinkValue);
-    this.showSuccessToast('Kaydedildi...');
-    this.selectedChoice = " ";
+    let alert = await this.confirm(this.selectedChoice);
   }
 
   openTodayDrinkList(){
-    this.showSuccessToast('Bugün girilen su listesi sayfası açılacak.');
+    this.navController.navigateForward('/today');
+  }
+
+  async confirm(value) {
+    const alert = await this.alertController.create({
+      header: 'Onayla',
+      message: 'Girdiğiniz değeri onaylıyor musunuz?',
+      buttons: [
+        {
+          text: 'Vazgeç',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            alert.dismiss(false);
+            this.selectedChoice = "";
+          }
+        }, {
+          text: 'Onayla',
+          handler: () => {
+            alert.dismiss(true);
+            this.saveDrink(value);
+          }
+        }
+      ]
+    });
+    
+    alert.present();
   }
 
   async showSuccessToast(message:string){

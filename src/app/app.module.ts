@@ -22,7 +22,7 @@ import { Device } from '@ionic-native/device/ngx';
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    AngularFirestoreModule,
+    AngularFirestoreModule
   ],
   providers: [
     StatusBar,
