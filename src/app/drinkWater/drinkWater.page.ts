@@ -3,6 +3,7 @@ import { IonSelect, ToastController, AlertController, NavController  } from '@io
 import { Chart } from 'chart.js';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Device } from '@ionic-native/device/ngx';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-drinkWater',
@@ -16,7 +17,8 @@ export class DrinkWaterPage {
     public toastController: ToastController,
     public db: AngularFirestore,
     public device: Device,
-    public alertController: AlertController) {}
+    public alertController: AlertController,
+    public translate: TranslateService) {}
 
   dbList: any;
 
