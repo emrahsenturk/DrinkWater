@@ -16,6 +16,10 @@
   
     <ion-card-content>
       <canvas #doughnutCanvas></canvas>
+      <ion-button color="light" expand="full" (click)="openTodayDrinkList()">
+        <ion-ripple-effect></ion-ripple-effect>
+        Bugün yaptığınız su girişleri
+      </ion-button>
     </ion-card-content>
   </ion-card>
 
@@ -65,10 +69,5 @@
         </ion-row>
     </ion-card-content>
   </ion-card>
-
-  <ion-button color="light" expand="full" (click)="openTodayDrinkList()">
-    <ion-ripple-effect></ion-ripple-effect>
-    Bugün yaptığınız su girişleri
-  </ion-button>
 
 </ion-content>
