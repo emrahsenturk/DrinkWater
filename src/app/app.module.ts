@@ -10,13 +10,13 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule, FirestoreSettingsToken } from 'angularfire2/firestore';
 import { FIREBASE_CONFIG } from './Firebase.Credential';
 import { Device } from '@ionic-native/device/ngx';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
 
-export function createTranslateLoader(httpClient: HttpClient) {
-  return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({

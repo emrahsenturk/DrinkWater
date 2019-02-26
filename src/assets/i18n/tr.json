@@ -1,5 +1,19 @@
 {
     "drinkWater" : {
-        "homepage": "Anasayfa"
+        "homepage": "Anasayfa",
+        "amountOfWaterForDrinkToday": "Bugün İçilmesi Gereken Su Miktarı",
+        "amountOfWaterForDrinkingToday": "Bugün Girilen Su Miktarları",
+        "drinkWater": "Su İçin",
+        "manuel": "Elle Seçin",
+        "howMuchWater": "Ne kadar su içtiniz?",
+        "remaining": "kalan",
+        "drinking": "içilen"
+    },
+    "global": {
+        "confirm": "Onayla",
+        "cancel": "Vazgeç",
+        "close": "Kapat",
+        "save": "Kaydet",
+        "confrmMessage": "Yapılan işlemi onaylıyor musunuz?"
     }
 }

@@ -1,5 +1,19 @@
 {
     "drinkWater" : {
-        "homepage": "Homepage"
+        "homepage": "Homepage",
+        "amountOfWaterForDrinkToday": "Amount Of Water For Drink Today",
+        "amountOfWaterForDrinkingToday": "Amount of Water Entered Today",
+        "drinkWater": "Drink Water",
+        "manuel": "Manually Select",
+        "howMuchWater": "How much water did you drink?",
+        "remaining": "remaning",
+        "drinking": "drinking"
+    },
+    "global": {
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "close": "Close",
+        "save": "Save",
+        "confrmMessage": "Do you confirm this transaction?"
     }
 }

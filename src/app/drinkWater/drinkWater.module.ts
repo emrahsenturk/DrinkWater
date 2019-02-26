@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     ChartsModule,
     RouterModule.forChild([{ path: '', component: DrinkWaterPage }]),
-    TranslateModule.forChild()
+    TranslateModule
   ],
   declarations: [DrinkWaterPage]
 })

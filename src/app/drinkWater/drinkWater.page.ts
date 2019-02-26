@@ -23,7 +23,7 @@ export class DrinkWaterPage {
   dbList: any;
 
   customSelectDrinkHeaderOptions: any = {
-    header: 'Ne kadar su içtiniz?',
+    header: this.translate.instant('drinkWater.howMuchWater'),
     translucent: true
   };
 
@@ -48,11 +48,17 @@ export class DrinkWaterPage {
   doughnutChart: any;
 
   ngOnInit(){
+    this.setChart();
+  }
+
+  setChart(){
+    let remaining = this.translate.instant('drinkWater.remaining');
+    let drinking = this.translate.instant('drinkWater.drinking');
 
     this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
       type: 'doughnut',
       data: {
-          labels: ["Kalan", "İçilen"],
+          labels: [remaining, drinking],
           datasets: [{
               label: '# of Votes',
               data: [850, 1750],
@@ -102,11 +108,11 @@ export class DrinkWaterPage {
 
   async confirm(value) {
     const alert = await this.alertController.create({
-      header: 'Onayla',
-      message: 'Girdiğiniz değeri onaylıyor musunuz?',
+      header: this.translate.instant('global.confirm'),
+      message: this.translate.instant('global.confrmMessage'),
       buttons: [
         {
-          text: 'Vazgeç',
+          text: this.translate.instant('global.cancel'),
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
@@ -114,7 +120,7 @@ export class DrinkWaterPage {
             this.selectedChoice = "";
           }
         }, {
-          text: 'Onayla',
+          text: this.translate.instant('global.confirm'),
           handler: () => {
             alert.dismiss(true);
             this.saveDrink(value);
@@ -131,7 +137,7 @@ export class DrinkWaterPage {
       message: message,
       showCloseButton: true,
       position: 'top',
-      closeButtonText: 'Kapat',
+      closeButtonText: this.translate.instant('global.close'),
       duration: 3000,
       animated: true,
       color: "primary"

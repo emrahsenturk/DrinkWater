@@ -11,21 +11,21 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Bugün İçmeniz Gereken Su Miktarı</ion-card-title>
+      <ion-card-title>{{ 'drinkWater.amountOfWaterForDrinkToday' | translate }}</ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
       <canvas #doughnutCanvas></canvas>
       <ion-button color="light" expand="full" (click)="openTodayDrinkList()">
         <ion-ripple-effect></ion-ripple-effect>
-        Bugün yaptığınız su girişleri
+        {{ 'drinkWater.amountOfWaterForDrinkingToday' | translate }}
       </ion-button>
     </ion-card-content>
   </ion-card>
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Su İçin</ion-card-title>
+      <ion-card-title>{{ 'drinkWater.drinkWater' | translate }}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
@@ -58,9 +58,9 @@
                 <ion-ripple-effect></ion-ripple-effect>
                 <ion-icon name="add-circle-outline"></ion-icon>
                 &nbsp;
-                Elle Seçin
+                {{ 'drinkWater.manuel' | translate }}
               </ion-button>
-              <ion-select hidden="true" [interfaceOptions]="customSelectDrinkHeaderOptions" [(ngModel)]="selectedChoice" (ionChange)="changeSelectedDrinkValue()" cancelText="Vazgeç" okText="Kaydet" #selectOtherDrinkValues>
+              <ion-select hidden="true" [interfaceOptions]="customSelectDrinkHeaderOptions" [(ngModel)]="selectedChoice" (ionChange)="changeSelectedDrinkValue()" cancelText="{{'global.cancel' | translate}}" okText="{{'global.save' | translate}}" #selectOtherDrinkValues>
                 <ion-select-option *ngFor="let item of otherDrinkValues" [value]="item.value">
                   {{item.text}}
                 </ion-select-option>
