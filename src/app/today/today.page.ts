@@ -18,10 +18,8 @@ export class TodayPage {
     public navController : NavController,
     public alertController : AlertController,
     public db: AngularFirestore,
-    public device : Device) {
-
-    //moment.locale('en');
-    
+    public device : Device
+  ) {
     let startDate = new Date(moment.now());
     startDate.setHours(0, 0, 0, 0);
 

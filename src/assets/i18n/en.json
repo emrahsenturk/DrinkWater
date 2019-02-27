@@ -2,18 +2,25 @@
     "drinkWater" : {
         "homepage": "Homepage",
         "amountOfWaterForDrinkToday": "Amount Of Water For Drink Today",
-        "amountOfWaterForDrinkingToday": "Amount of Water Entered Today",
+        "amountOfWaterForDrinkingToday": "Today Drinks",
         "drinkWater": "Drink Water",
         "manuel": "Manually Select",
         "howMuchWater": "How much water did you drink?",
         "remaining": "remaning",
         "drinking": "drinking"
     },
+    "settings": {
+        "amountOfWaterForDrinkDaily": "Amount of Water For Drink Daily",
+        "amountOfWater": "Amount Of Water",
+        "dailyWaterRequirementCalculation": "Daily Water Requirement Calculation",
+        "amountOfWaterPromptHeader": "Enter your daily amount of water"
+    },
     "global": {
         "confirm": "Confirm",
         "cancel": "Cancel",
         "close": "Close",
         "save": "Save",
-        "confrmMessage": "Do you confirm this transaction?"
+        "confrmMessage": "Do you confirm this transaction?",
+        "saveMessage": "Saved..."
     }
 }

@@ -7,4 +7,27 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+
+  <ion-list>
+
+    <ion-list-header color="light">
+      <ion-label>{{ 'settings.amountOfWaterForDrinkDaily' | translate }}</ion-label>
+    </ion-list-header>
+
+    <ion-item (click)="openAmountPrompt()" detail>
+      <ion-label item-start>
+        {{ 'settings.amountOfWater' | translate }}
+      </ion-label>
+      <ion-label color="primary" text-end>
+        {{amountOfWaterDaily}} ML
+      </ion-label>
+    </ion-item>
+
+    <ion-item (click)="buttonClick()" detail>
+      <ion-label>{{ 'settings.dailyWaterRequirementCalculation' | translate }}</ion-label>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

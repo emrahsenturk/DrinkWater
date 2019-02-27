@@ -2,18 +2,25 @@
     "drinkWater" : {
         "homepage": "Anasayfa",
         "amountOfWaterForDrinkToday": "Bugün İçilmesi Gereken Su Miktarı",
-        "amountOfWaterForDrinkingToday": "Bugün Girilen Su Miktarları",
+        "amountOfWaterForDrinkingToday": "Bugünkü Girişler",
         "drinkWater": "Su İçin",
         "manuel": "Elle Seçin",
         "howMuchWater": "Ne kadar su içtiniz?",
         "remaining": "kalan",
         "drinking": "içilen"
     },
+    "settings": {
+        "amountOfWaterForDrinkDaily": "Günlük İçilmesi Gereken Su Miktarı",
+        "amountOfWater": "Su Miktarı",
+        "dailyWaterRequirementCalculation": "Günlük Su İhtiyacı Hesaplama",
+        "amountOfWaterPromptHeader": "Günlük su tüketim miktarınızı giriniz"
+    },
     "global": {
         "confirm": "Onayla",
         "cancel": "Vazgeç",
         "close": "Kapat",
         "save": "Kaydet",
-        "confrmMessage": "Yapılan işlemi onaylıyor musunuz?"
+        "confrmMessage": "Yapılan işlemi onaylıyor musunuz?",
+        "saveMessage": "Kaydedildi..."
     }
 }

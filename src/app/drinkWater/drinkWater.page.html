@@ -16,16 +16,18 @@
   
     <ion-card-content>
       <canvas #doughnutCanvas></canvas>
-      <ion-button color="light" expand="full" (click)="openTodayDrinkList()">
-        <ion-ripple-effect></ion-ripple-effect>
-        {{ 'drinkWater.amountOfWaterForDrinkingToday' | translate }}
-      </ion-button>
     </ion-card-content>
   </ion-card>
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title>{{ 'drinkWater.drinkWater' | translate }}</ion-card-title>
+      <ion-card-title>
+        {{ 'drinkWater.drinkWater' | translate }}
+        <ion-button color="light" size="small" (click)="openTodayDrinkList()">
+          <ion-ripple-effect></ion-ripple-effect>
+          {{ 'drinkWater.amountOfWaterForDrinkingToday' | translate }}
+        </ion-button>
+      </ion-card-title>
     </ion-card-header>
 
     <ion-card-content>

@@ -3,6 +3,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',
@@ -28,11 +29,14 @@ export class AppComponent {
 
   private initTranslate() {
      this.translate.setDefaultLang('en');
+     moment.locale('en');
 
      if (this.translate.getBrowserLang() !== undefined) {
          this.translate.use(this.translate.getBrowserLang());
+         moment.locale(this.translate.getBrowserLang());
      } else {
          this.translate.use('en');
+         moment.locale('en');
      }
   }
 }

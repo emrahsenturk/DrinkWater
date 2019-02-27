@@ -18,7 +18,8 @@ export class DrinkWaterPage {
     public db: AngularFirestore,
     public device: Device,
     public alertController: AlertController,
-    public translate: TranslateService) {}
+    public translate: TranslateService
+  ) {}
 
   dbList: any;
 
@@ -87,7 +88,7 @@ export class DrinkWaterPage {
     };
     this.dbList = this.db.collection<any>('DrinkValues');
     this.dbList.add(drinkValue);
-    this.showSuccessToast('Kaydedildi...');
+    this.showSuccessToast(this.translate.instant('global.saveMessage'));
   }
 
   openSelectOtherDrink(){
