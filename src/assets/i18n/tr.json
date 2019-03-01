@@ -13,7 +13,9 @@
         "amountOfWaterForDrinkDaily": "Günlük İçilmesi Gereken Su Miktarı",
         "amountOfWater": "Su Miktarı",
         "dailyWaterRequirementCalculation": "Günlük Su İhtiyacı Hesaplama",
-        "amountOfWaterPromptHeader": "Günlük su tüketim miktarınızı giriniz"
+        "amountOfWaterPromptHeader": "Günlük su tüketim miktarınızı giriniz",
+        "languageSettings": "Dil Ayarları",
+        "changeLanguage": "Dili değiştirin"
     },
     "global": {
         "confirm": "Onayla",
@@ -22,5 +24,10 @@
         "save": "Kaydet",
         "confrmMessage": "Yapılan işlemi onaylıyor musunuz?",
         "saveMessage": "Kaydedildi..."
+    },
+    "tabs": {
+        "drinkWater": "Su İç",
+        "analysis": "Analiz",
+        "settings": "Ayarlar"
     }
 }

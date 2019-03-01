@@ -5,6 +5,7 @@ import { Device } from '@ionic-native/device/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { map } from 'rxjs/operators';
 import { DailyAmount } from '../objects/dailyAmount';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-settings',
@@ -15,6 +16,11 @@ export class SettingsPage {
 
   amountOfWaterDaily: number;
   dbList: any;
+  languages = [
+    {Value: "tr", Text: "Türkçe"},
+    {Value: "en", Text: "English"}
+  ];
+  selectedLanguage: string;
 
   constructor(
     public navController: NavController,
@@ -25,11 +31,12 @@ export class SettingsPage {
     public translate: TranslateService,
     private dailyAmount: DailyAmount
   ) {
+    this.selectedLanguage = translate.getDefaultLang();
     this.getDailyAmount();
   }
 
   getDailyAmount(){
-    this.dbList = this.db.doc<DailyAmount>('DailyAmounts/asd').valueChanges();
+    this.dbList = this.db.doc<DailyAmount>('DailyAmounts/' + this.device.uuid).valueChanges();
   }
 
   async openAmountPrompt() {
@@ -69,10 +76,15 @@ export class SettingsPage {
       Value: amount
     };
 
-    this.dbList = this.db.doc<DailyAmount>('DailyAmounts/asd');
+    this.dbList = this.db.doc<DailyAmount>('DailyAmounts/' + this.device.uuid);
     this.dbList.set(this.dailyAmount);
     this.showSuccessToast(this.translate.instant('global.saveMessage'));
     this.getDailyAmount();
+  }
+
+  changeLanguage(){
+    this.translate.use(this.selectedLanguage);
+    moment.locale(this.selectedLanguage);
   }
 
   async showSuccessToast(message:string){

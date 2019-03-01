@@ -13,7 +13,9 @@
         "amountOfWaterForDrinkDaily": "Amount of Water For Drink Daily",
         "amountOfWater": "Amount Of Water",
         "dailyWaterRequirementCalculation": "Daily Water Requirement Calculation",
-        "amountOfWaterPromptHeader": "Enter your daily amount of water"
+        "amountOfWaterPromptHeader": "Enter your daily amount of water",
+        "languageSettings": "LanguageSettings",
+        "changeLanguage": "Change language"
     },
     "global": {
         "confirm": "Confirm",
@@ -22,5 +24,10 @@
         "save": "Save",
         "confrmMessage": "Do you confirm this transaction?",
         "saveMessage": "Saved..."
+    },
+    "tabs": {
+        "drinkWater": "Drink Water",
+        "analysis": "Analysis",
+        "settings": "Settings"
     }
 }
