@@ -20,7 +20,7 @@
         {{ 'settings.amountOfWater' | translate }}
       </ion-label>
       <ion-label color="primary" text-end>
-        {{amountOfWaterDaily}} ML
+        {{(dbList | async)?.Value}} ML
       </ion-label>
     </ion-item>
 

@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { DrinkWaterPage } from './drinkWater.page';
 import { ChartsModule } from 'ng2-charts';
 import { TranslateModule } from '@ngx-translate/core';
+import { DrinkValue } from '../objects/drinkValue';
 
 @NgModule({
   imports: [
@@ -14,8 +15,11 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     ChartsModule,
     RouterModule.forChild([{ path: '', component: DrinkWaterPage }]),
-    TranslateModule
+    TranslateModule,
   ],
-  declarations: [DrinkWaterPage]
+  declarations: [DrinkWaterPage],
+  providers: [
+    DrinkValue
+  ]
 })
 export class DrinkWaterPageModule {}

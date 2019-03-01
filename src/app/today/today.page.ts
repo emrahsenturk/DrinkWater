@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
 import { Device } from '@ionic-native/device/ngx';
 import * as moment from 'moment';
+import { DrinkValue } from '../objects/drinkValue';
 
 @Component({
   selector: 'app-today',
@@ -20,14 +21,18 @@ export class TodayPage {
     public db: AngularFirestore,
     public device : Device
   ) {
+    this.todayDrinks = this.getTodayList();
+  }
+
+  getTodayList() {
     let startDate = new Date(moment.now());
     startDate.setHours(0, 0, 0, 0);
 
     let endDate = new Date(moment.now());
     endDate.setHours(23, 59, 59, 0);
 
-    this.todayDrinks = this.db.collection<any>('DrinkValues', ref => ref
-      .where('UserId', '==', device.uuid)
+    return this.db.collection<any>('DrinkValues', ref => ref
+      .where('UserId', '==', this.device.uuid)
       .where('Date', '>=', startDate)
       .where('Date', '<=', endDate)
       .orderBy('Date', 'desc'))

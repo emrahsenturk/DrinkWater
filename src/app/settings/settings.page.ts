@@ -3,6 +3,8 @@ import { IonSelect, ToastController, AlertController, NavController  } from '@io
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Device } from '@ionic-native/device/ngx';
 import { TranslateService } from '@ngx-translate/core';
+import { map } from 'rxjs/operators';
+import { DailyAmount } from '../objects/dailyAmount';
 
 @Component({
   selector: 'app-settings',
@@ -11,18 +13,24 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SettingsPage {
 
+  amountOfWaterDaily: number;
+  dbList: any;
+
   constructor(
     public navController: NavController,
     public toastController: ToastController,
     public db: AngularFirestore,
     public device: Device,
     public alertController: AlertController,
-    public translate: TranslateService
-  ) {}
+    public translate: TranslateService,
+    private dailyAmount: DailyAmount
+  ) {
+    this.getDailyAmount();
+  }
 
-  amountOfWaterDaily: number;
-
-  dbList: any;
+  getDailyAmount(){
+    this.dbList = this.db.doc<DailyAmount>('DailyAmounts/asd').valueChanges();
+  }
 
   async openAmountPrompt() {
     const alert = await this.alertController.create({
@@ -47,7 +55,7 @@ export class SettingsPage {
           text: this.translate.instant('global.confirm'),
           handler: (data) => {
             this.amountOfWaterDaily = data.amountOfWaterDaily;
-            this.saveDailyAmount(this.amountOfWaterDaily);
+            this.saveDailyAmount(data.amountOfWaterDaily);
           }
         }
       ]
@@ -56,14 +64,15 @@ export class SettingsPage {
     await alert.present();
   }
 
-  saveDailyAmount(value: number){
-    let daily = {
-      UserId: this.device.uuid,
-      Value: value
+  saveDailyAmount(amount: number){
+    this.dailyAmount = {
+      Value: amount
     };
-    this.dbList = this.db.collection<any>('DailyAmounts');
-    this.dbList.add(daily);
+
+    this.dbList = this.db.doc<DailyAmount>('DailyAmounts/asd');
+    this.dbList.set(this.dailyAmount);
     this.showSuccessToast(this.translate.instant('global.saveMessage'));
+    this.getDailyAmount();
   }
 
   async showSuccessToast(message:string){

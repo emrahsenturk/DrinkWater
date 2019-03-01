@@ -4,6 +4,7 @@ import { Chart } from 'chart.js';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Device } from '@ionic-native/device/ngx';
 import { TranslateService } from '@ngx-translate/core';
+import { DrinkValue } from '../objects/drinkValue';
 
 @Component({
   selector: 'app-drinkWater',
@@ -18,7 +19,8 @@ export class DrinkWaterPage {
     public db: AngularFirestore,
     public device: Device,
     public alertController: AlertController,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private drinkValue : DrinkValue
   ) {}
 
   dbList: any;
@@ -44,7 +46,7 @@ export class DrinkWaterPage {
   @ViewChild('selectOtherDrinkValues') selectOtherDrinkValues : IonSelect;
   selectedChoice : string = "";
 
-  @ViewChild('doughnutCanvas') doughnutCanvas;
+  @ViewChild('doughnutCanvas') doughnutCanvas : any;
 
   doughnutChart: any;
 
@@ -80,14 +82,14 @@ export class DrinkWaterPage {
     let alert = await this.confirm(value);
   }
 
-  saveDrink(value){
-    let drinkValue = {
+  saveDrink(value : number){
+    this.drinkValue = {
       UserId: this.device.uuid,
       Value: value,
       Date: new Date()
     };
-    this.dbList = this.db.collection<any>('DrinkValues');
-    this.dbList.add(drinkValue);
+    this.dbList = this.db.collection<DrinkValue>('DrinkValues');
+    this.dbList.add(this.drinkValue);
     this.showSuccessToast(this.translate.instant('global.saveMessage'));
   }
 
@@ -99,8 +101,7 @@ export class DrinkWaterPage {
     if(this.selectedChoice == " "){
       return;
     }
-
-    let alert = await this.confirm(this.selectedChoice);
+    await this.confirm(this.selectedChoice);
   }
 
   openTodayDrinkList(){

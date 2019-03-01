@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SettingsPage } from './settings.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { DailyAmount } from '../objects/dailyAmount';
 
 @NgModule({
   imports: [
@@ -14,6 +15,9 @@ import { TranslateModule } from '@ngx-translate/core';
     RouterModule.forChild([{ path: '', component: SettingsPage }]),
     TranslateModule
   ],
-  declarations: [SettingsPage]
+  declarations: [SettingsPage],
+  providers: [
+    DailyAmount
+  ]
 })
 export class SettingsPageModule {}
