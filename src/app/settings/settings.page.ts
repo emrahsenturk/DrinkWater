@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { map } from 'rxjs/operators';
 import { DailyAmount } from '../objects/dailyAmount';
 import * as moment from 'moment';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-settings',
@@ -17,8 +18,8 @@ export class SettingsPage {
   amountOfWaterDaily: number;
   dbList: any;
   languages = [
-    {Value: "tr", Text: "Türkçe"},
-    {Value: "en", Text: "English"}
+    { value: "tr", text: "Türkçe"},
+    { value: "en", text: "English"}
   ];
   selectedLanguage: string;
 
@@ -29,14 +30,23 @@ export class SettingsPage {
     public device: Device,
     public alertController: AlertController,
     public translate: TranslateService,
+    public storage: Storage,
     private dailyAmount: DailyAmount
   ) {
-    this.selectedLanguage = translate.getDefaultLang();
-    this.getDailyAmount();
+    this.initLanguage();
+    this.initDailyAmount();
   }
 
-  getDailyAmount(){
-    this.dbList = this.db.doc<DailyAmount>('DailyAmounts/' + this.device.uuid).valueChanges();
+  initLanguage(){
+    this.storage.get('language').then((val) => {
+      this.selectedLanguage = val;
+    });
+  }
+
+  initDailyAmount(){
+    this.storage.get('dailyAmount').then((val) => {
+      this.amountOfWaterDaily = val;
+    });
   }
 
   async openAmountPrompt() {
@@ -44,8 +54,8 @@ export class SettingsPage {
       header: this.translate.instant('settings.amountOfWaterPromptHeader'),
       inputs: [
         {
-          name: 'amountOfWaterDaily',
-          type: 'number',
+          name: 'enteredAmount',
+          type: 'tel',
           placeholder: this.translate.instant('settings.amountOfWater'),
           value: this.amountOfWaterDaily != null ? this.amountOfWaterDaily : ""
         }
@@ -61,8 +71,11 @@ export class SettingsPage {
         }, {
           text: this.translate.instant('global.confirm'),
           handler: (data) => {
-            this.amountOfWaterDaily = data.amountOfWaterDaily;
-            this.saveDailyAmount(data.amountOfWaterDaily);
+            if(data.enteredAmount == "" || this.amountOfWaterDaily == data.enteredAmount){
+              alert.dismiss();
+              return false;
+            }
+            this.saveDailyAmount(data.enteredAmount);
           }
         }
       ]
@@ -78,13 +91,15 @@ export class SettingsPage {
 
     this.dbList = this.db.doc<DailyAmount>('DailyAmounts/' + this.device.uuid);
     this.dbList.set(this.dailyAmount);
+    this.storage.set('dailyAmount', amount);
+    this.amountOfWaterDaily = amount;
     this.showSuccessToast(this.translate.instant('global.saveMessage'));
-    this.getDailyAmount();
   }
 
   changeLanguage(){
     this.translate.use(this.selectedLanguage);
     moment.locale(this.selectedLanguage);
+    this.storage.set('language', this.selectedLanguage);
   }
 
   async showSuccessToast(message:string){

@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>
       <ion-icon name="settings"></ion-icon>
-      Ayarlar
+      {{ 'settings.settings' | translate }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -18,7 +18,7 @@
         {{ 'settings.amountOfWater' | translate }}
       </ion-label>
       <ion-label color="primary" text-end>
-        {{(dbList | async)?.Value}} ML
+        {{amountOfWaterDaily}} ML
       </ion-label>
     </ion-item>
     <ion-item (click)="buttonClick()" detail>
@@ -31,9 +31,9 @@
       <ion-label>{{ 'settings.languageSettings' | translate }}</ion-label>
     </ion-list-header>
     <ion-item>
-      <ion-label>Action Sheet</ion-label>
+      <ion-label>{{ 'settings.language' | translate }}</ion-label>
       <ion-select [(ngModel)]="selectedLanguage" (ionChange)="changeLanguage()" [interfaceOptions]="customActionSheetOptions" cancelText="{{ 'global.cancel' | translate }}" interface="action-sheet" placeholder="{{ 'settings.changeLanguage' | translate }}">
-        <ion-select-option *ngFor="let item of languages" [value]="item.Value">{{item.Text}}</ion-select-option>
+        <ion-select-option *ngFor="let item of languages" [value]="item.value">{{item.text}}</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-list>

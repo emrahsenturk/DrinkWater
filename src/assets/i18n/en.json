@@ -4,18 +4,23 @@
         "amountOfWaterForDrinkToday": "Amount Of Water For Drink Today",
         "amountOfWaterForDrinkingToday": "Today Drinks",
         "drinkWater": "Drink Water",
-        "manuel": "Manually Select",
+        "manuel": "Manual",
         "howMuchWater": "How much water did you drink?",
         "remaining": "remaning",
         "drinking": "drinking"
     },
+    "analysis" : {
+        "analysis": "Analysis"
+    },
     "settings": {
+        "settings": "Settings",
         "amountOfWaterForDrinkDaily": "Amount of Water For Drink Daily",
         "amountOfWater": "Amount Of Water",
         "dailyWaterRequirementCalculation": "Daily Water Requirement Calculation",
         "amountOfWaterPromptHeader": "Enter your daily amount of water",
         "languageSettings": "LanguageSettings",
-        "changeLanguage": "Change language"
+        "changeLanguage": "Change language",
+        "language": "Language"
     },
     "global": {
         "confirm": "Confirm",

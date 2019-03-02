@@ -4,6 +4,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private storage: Storage
   ) {
     this.initializeApp();
   }
@@ -28,15 +30,22 @@ export class AppComponent {
   }
 
   private initTranslate() {
-     this.translate.setDefaultLang('en');
-     moment.locale('en');
+    this.storage.get('language').then((val) => {
+      if(val == null){
+        this.setTranslate('en');
+        if (this.translate.getBrowserLang() !== undefined) {
+          this.setTranslate(this.translate.getBrowserLang());
+        }
+      }else{
+        this.setTranslate(val);
+      }
+    });
+    
+  }
 
-     if (this.translate.getBrowserLang() !== undefined) {
-         this.translate.use(this.translate.getBrowserLang());
-         moment.locale(this.translate.getBrowserLang());
-     } else {
-         this.translate.use('en');
-         moment.locale('en');
-     }
+  private setTranslate(language){
+    this.translate.setDefaultLang(language);
+    moment.locale(language);
+    this.storage.set('language', language);
   }
 }

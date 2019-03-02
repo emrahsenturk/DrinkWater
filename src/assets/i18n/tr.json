@@ -9,13 +9,18 @@
         "remaining": "kalan",
         "drinking": "içilen"
     },
+    "analysis" : {
+        "analysis": "Analiz"
+    },
     "settings": {
+        "settings": "Ayarlar",
         "amountOfWaterForDrinkDaily": "Günlük İçilmesi Gereken Su Miktarı",
         "amountOfWater": "Su Miktarı",
         "dailyWaterRequirementCalculation": "Günlük Su İhtiyacı Hesaplama",
         "amountOfWaterPromptHeader": "Günlük su tüketim miktarınızı giriniz",
         "languageSettings": "Dil Ayarları",
-        "changeLanguage": "Dili değiştirin"
+        "changeLanguage": "Dili değiştirin",
+        "language": "Dil"
     },
     "global": {
         "confirm": "Onayla",
