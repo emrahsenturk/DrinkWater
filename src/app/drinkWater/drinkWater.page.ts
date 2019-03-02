@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonSelect, ToastController, AlertController, NavController  } from '@ionic/angular';
+import { IonSelect, ToastController, AlertController, NavController } from '@ionic/angular';
 import { Chart } from 'chart.js';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Device } from '@ionic-native/device/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { DrinkValue } from '../objects/drinkValue';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-drinkWater',
@@ -20,10 +21,13 @@ export class DrinkWaterPage {
     public device: Device,
     public alertController: AlertController,
     public translate: TranslateService,
+    private storage: Storage,
     private drinkValue : DrinkValue
   ) {}
 
   dbList: any;
+  allDrinkingToday: number = 0;
+  allRemainigToday: number = 0; 
 
   customSelectDrinkHeaderOptions: any = {
     header: this.translate.instant('drinkWater.howMuchWater'),
@@ -47,31 +51,54 @@ export class DrinkWaterPage {
   selectedChoice : string = "";
 
   @ViewChild('doughnutCanvas') doughnutCanvas : any;
-
   doughnutChart: any;
 
   ngOnInit(){
-    this.setChart();
+    this.getChartsData();
+  }
+
+  getChartsData(){
+    this.allDrinkingToday = 0;
+    this.allRemainigToday = 0;
+
+    let keysLength = 0;
+    this.storage.length().then((data) => {
+      keysLength = data;
+    })
+
+    this.storage.get('dailyAmount').then((val) => {
+
+      this.storage.forEach( (value, key, index) => {
+        let saveDate = new Date();
+        let formattedDate = saveDate.getFullYear() + '-' + (saveDate.getMonth() + 1) + '-' + saveDate.getDate();
+  
+        if(key.startsWith('drinkValues_' + formattedDate)){
+          this.allDrinkingToday += value.Value;
+        }
+        if(keysLength == index){
+          this.allRemainigToday = val - this.allDrinkingToday;
+          this.allRemainigToday = this.allRemainigToday >= 0 ? this.allRemainigToday : 0;
+          this.setChart();
+        }
+      });
+      
+    });
   }
 
   setChart(){
-    let remaining = this.translate.instant('drinkWater.remaining');
-    let drinking = this.translate.instant('drinkWater.drinking');
+    let lblRemaining = this.translate.instant('drinkWater.remaining');
+    let lblDrinking = this.translate.instant('drinkWater.drinking');
 
     this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
       type: 'doughnut',
       data: {
-          labels: [remaining, drinking],
+          labels: [lblRemaining, lblDrinking],
           datasets: [{
               label: '# of Votes',
-              data: [850, 1750],
+              data: [this.allRemainigToday, this.allDrinkingToday],
               backgroundColor: [
                   '#FF6384',
                   '#36A2EB'
-              ],
-              hoverBackgroundColor: [
-                  "rgba(255, 99, 132, 0.2)",
-                  "rgba(54, 162, 235, 0.2)"
               ]
           }]
       }
@@ -83,14 +110,22 @@ export class DrinkWaterPage {
   }
 
   saveDrink(value : number){
+    let saveDate = new Date();
+
     this.drinkValue = {
       UserId: this.device.uuid,
       Value: value,
-      Date: new Date()
+      Date: saveDate
     };
+
+    let formattedDate = saveDate.getFullYear() + '-' + (saveDate.getMonth() + 1) + '-' + saveDate.getDate() +
+      '_' + saveDate.getHours() + ':' + saveDate.getMinutes() + ':' + saveDate.getMilliseconds();
+
+    this.storage.set('drinkValues_' + formattedDate, this.drinkValue);
     this.dbList = this.db.collection<DrinkValue>('DrinkValues');
     this.dbList.add(this.drinkValue);
     this.showSuccessToast(this.translate.instant('global.saveMessage'));
+    this.getChartsData();
   }
 
   openSelectOtherDrink(){
@@ -98,9 +133,6 @@ export class DrinkWaterPage {
   }
 
   async changeSelectedDrinkValue(){
-    if(this.selectedChoice == " "){
-      return;
-    }
     await this.confirm(this.selectedChoice);
   }
 
@@ -109,6 +141,10 @@ export class DrinkWaterPage {
   }
 
   async confirm(value) {
+    if(value == ""){
+      return;
+    }
+
     const alert = await this.alertController.create({
       header: this.translate.instant('global.confirm'),
       message: this.translate.instant('global.confrmMessage'),
@@ -125,6 +161,7 @@ export class DrinkWaterPage {
           text: this.translate.instant('global.confirm'),
           handler: () => {
             alert.dismiss(true);
+            this.selectedChoice = "";
             this.saveDrink(value);
           }
         }

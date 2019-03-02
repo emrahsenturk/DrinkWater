@@ -13,7 +13,7 @@
   <ion-content>
   
     <ion-list>
-        <ion-item-sliding *ngFor="let item of todayDrinks | async" #slidingItem>
+        <ion-item-sliding *ngFor="let item of todayDrinks" #slidingItem>
             <ion-item>
                 <ion-label>
                     <ion-text color="primary">
@@ -23,7 +23,7 @@
                 </ion-label>
             </ion-item>
             <ion-item-options side="end">
-                <ion-item-option color="danger" (click)="deleteDrink(slidingItem, item.id)">
+                <ion-item-option color="danger" (click)="deleteDrink(slidingItem, item.Key)">
                     <ion-icon name="trash"></ion-icon>
                     Sil
                 </ion-item-option>

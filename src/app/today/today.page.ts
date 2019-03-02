@@ -1,9 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { map } from 'rxjs/operators';
 import { Device } from '@ionic-native/device/ngx';
 import * as moment from 'moment';
+import { Storage } from '@ionic/storage';
 import { DrinkValue } from '../objects/drinkValue';
 
 @Component({
@@ -13,40 +12,51 @@ import { DrinkValue } from '../objects/drinkValue';
 })
 export class TodayPage {
 
-  todayDrinks : any;
+  todayDrinks : any[];
 
   constructor(
     public navController : NavController,
     public alertController : AlertController,
-    public db: AngularFirestore,
-    public device : Device
+    public device : Device,
+    private storage: Storage
   ) {
     this.todayDrinks = this.getTodayList();
   }
 
-  getTodayList() {
-    let startDate = new Date(moment.now());
-    startDate.setHours(0, 0, 0, 0);
+  getTodayList(): Array<DrinkValue> {
+    let keysLength = 0;
+    this.storage.length().then((data) => {
+      keysLength = data;
+    })
 
-    let endDate = new Date(moment.now());
-    endDate.setHours(23, 59, 59, 0);
+    let drinks = [];
+    this.storage.forEach( (value, key, index) => {
+      let saveDate = new Date();
+      let formattedDate = saveDate.getFullYear() + '-' + (saveDate.getMonth() + 1) + '-' + saveDate.getDate();
 
-    return this.db.collection<any>('DrinkValues', ref => ref
-      .where('UserId', '==', this.device.uuid)
-      .where('Date', '>=', startDate)
-      .where('Date', '<=', endDate)
-      .orderBy('Date', 'desc'))
-      .snapshotChanges().pipe(
-        map(actions => actions.map(a => {
-          const data = a.payload.doc.data();
-          data.Date = moment(data.Date.seconds * 1000).format('LLL');
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        }))
-      );
+      if(key.startsWith('drinkValues_' + formattedDate)){
+        value.Date = moment(value.Date).format('LLL');
+        value.Key = key;
+        drinks.push(value);
+      }
+
+      if(keysLength == index){
+        drinks.sort((n1, n2) => {
+          if (n1.Date > n2.Date) {
+              return -1;
+          }
+          if (n1.Date < n2.Date) {
+              return 1;
+          }
+          return 0;
+        });
+      }
+    });
+
+    return drinks;
   }
 
-  async deleteDrink(slidingItem, id){
+  async deleteDrink(slidingItem, key: string){
     const alert = await this.alertController.create({
       header: 'Onayla',
       message: 'Silme işlemini onaylıyor musunuz?',
@@ -62,8 +72,9 @@ export class TodayPage {
           text: 'Onayla',
           handler: () => {
             alert.dismiss(true);
-            this.db.doc<any>('DrinkValues/' + id).delete();
+            this.storage.remove(key);
             slidingItem.close();
+            this.todayDrinks = this.getTodayList();
           }
         }
       ]
