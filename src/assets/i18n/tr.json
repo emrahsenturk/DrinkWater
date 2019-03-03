@@ -22,12 +22,16 @@
         "changeLanguage": "Dili değiştirin",
         "language": "Dil"
     },
+    "today": {
+        "today": "Bugün",
+        "delete": "Sil"
+    },
     "global": {
         "confirm": "Onayla",
         "cancel": "Vazgeç",
         "close": "Kapat",
         "save": "Kaydet",
-        "confrmMessage": "Yapılan işlemi onaylıyor musunuz?",
+        "confirmMessage": "Yapılan işlemi onaylıyor musunuz?",
         "saveMessage": "Kaydedildi..."
     },
     "tabs": {

@@ -22,12 +22,16 @@
         "changeLanguage": "Change language",
         "language": "Language"
     },
+    "today": {
+        "today": "Today",
+        "delete": "Delete"
+    },
     "global": {
         "confirm": "Confirm",
         "cancel": "Cancel",
         "close": "Close",
         "save": "Save",
-        "confrmMessage": "Do you confirm this transaction?",
+        "confirmMessage": "Do you confirm this transaction?",
         "saveMessage": "Saved..."
     },
     "tabs": {

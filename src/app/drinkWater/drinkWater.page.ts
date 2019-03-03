@@ -137,7 +137,7 @@ export class DrinkWaterPage {
   }
 
   openTodayDrinkList(){
-    this.navController.navigateForward('/today');
+    this.navController.navigateRoot('/today');
   }
 
   async confirm(value) {
@@ -147,7 +147,7 @@ export class DrinkWaterPage {
 
     const alert = await this.alertController.create({
       header: this.translate.instant('global.confirm'),
-      message: this.translate.instant('global.confrmMessage'),
+      message: this.translate.instant('global.confirmMessage'),
       buttons: [
         {
           text: this.translate.instant('global.cancel'),

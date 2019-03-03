@@ -4,6 +4,7 @@ import { Device } from '@ionic-native/device/ngx';
 import * as moment from 'moment';
 import { Storage } from '@ionic/storage';
 import { DrinkValue } from '../objects/drinkValue';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-today',
@@ -18,7 +19,8 @@ export class TodayPage {
     public navController : NavController,
     public alertController : AlertController,
     public device : Device,
-    private storage: Storage
+    private storage: Storage,
+    private translate: TranslateService
   ) {
     this.todayDrinks = this.getTodayList();
   }
@@ -58,18 +60,18 @@ export class TodayPage {
 
   async deleteDrink(slidingItem, key: string){
     const alert = await this.alertController.create({
-      header: 'Onayla',
-      message: 'Silme işlemini onaylıyor musunuz?',
+      header: this.translate.instant('global.confirm'),
+      message: this.translate.instant('global.confirmMessage'),
       buttons: [
         {
-          text: 'Vazgeç',
+          text: this.translate.instant('global.cancel'),
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
             alert.dismiss(false);
           }
         }, {
-          text: 'Onayla',
+          text: this.translate.instant('global.confirm'),
           handler: () => {
             alert.dismiss(true);
             this.storage.remove(key);
@@ -84,7 +86,7 @@ export class TodayPage {
   }
 
   goBack(){
-    this.navController.pop();
+    this.navController.navigateRoot('/tabs/drinkWater');
   }
 
 }
