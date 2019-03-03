@@ -7,6 +7,7 @@ import { DrinkWaterPage } from './drinkWater.page';
 import { ChartsModule } from 'ng2-charts';
 import { TranslateModule } from '@ngx-translate/core';
 import { DrinkValue } from '../objects/drinkValue';
+import { ToastService } from '../crossCutting/toast/toast';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { DrinkValue } from '../objects/drinkValue';
   ],
   declarations: [DrinkWaterPage],
   providers: [
-    DrinkValue
+    DrinkValue,
+    ToastService
   ]
 })
 export class DrinkWaterPageModule {}

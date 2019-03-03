@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { SettingsPage } from './settings.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { DailyAmount } from '../objects/dailyAmount';
+import { ToastService } from '../crossCutting/toast/toast';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { DailyAmount } from '../objects/dailyAmount';
   ],
   declarations: [SettingsPage],
   providers: [
-    DailyAmount
+    DailyAmount,
+    ToastService
   ]
 })
 export class SettingsPageModule {}

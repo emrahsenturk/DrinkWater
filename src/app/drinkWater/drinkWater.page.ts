@@ -6,6 +6,7 @@ import { Device } from '@ionic-native/device/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { DrinkValue } from '../objects/drinkValue';
 import { Storage } from '@ionic/storage';
+import { ToastService } from '../crossCutting/toast/toast';
 
 @Component({
   selector: 'app-drinkWater',
@@ -22,7 +23,8 @@ export class DrinkWaterPage {
     public alertController: AlertController,
     public translate: TranslateService,
     private storage: Storage,
-    private drinkValue : DrinkValue
+    private drinkValue : DrinkValue,
+    private toast: ToastService
   ) {}
 
   dbList: any;
@@ -124,7 +126,7 @@ export class DrinkWaterPage {
     this.storage.set('drinkValues_' + formattedDate, this.drinkValue);
     this.dbList = this.db.collection<DrinkValue>('DrinkValues');
     this.dbList.add(this.drinkValue);
-    this.showSuccessToast(this.translate.instant('global.saveMessage'));
+    this.toast.showSuccessToast(this.translate.instant('global.saveMessage'));
     this.getChartsData();
   }
 
@@ -171,17 +173,17 @@ export class DrinkWaterPage {
     alert.present();
   }
 
-  async showSuccessToast(message:string){
-    const toast = await this.toastController.create({
-      message: message,
-      showCloseButton: true,
-      position: 'top',
-      closeButtonText: this.translate.instant('global.close'),
-      duration: 3000,
-      animated: true,
-      color: "primary"
-    });
-    toast.present();
-  }
+  // async showSuccessToast(message:string){
+  //   const toast = await this.toastController.create({
+  //     message: message,
+  //     showCloseButton: true,
+  //     position: 'top',
+  //     closeButtonText: this.translate.instant('global.close'),
+  //     duration: 3000,
+  //     animated: true,
+  //     color: "primary"
+  //   });
+  //   toast.present();
+  // }
 
 }
