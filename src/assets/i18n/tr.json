@@ -20,7 +20,9 @@
         "amountOfWaterPromptHeader": "Günlük su tüketim miktarınızı giriniz",
         "languageSettings": "Dil Ayarları",
         "changeLanguage": "Dili değiştirin",
-        "language": "Dil"
+        "language": "Dil",
+        "removeAllData": "Tüm Veriyi Sil",
+        "removedAllData": "Tüm veri silindi."
     },
     "today": {
         "today": "Bugün",

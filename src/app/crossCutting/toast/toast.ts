@@ -46,7 +46,7 @@ export class ToastService{
           showCloseButton: true,
           position: 'top',
           closeButtonText: this.translate.instant('global.close'),
-          duration: 3000,
+          duration: 2000,
           animated: true,
           color: "danger"
         });

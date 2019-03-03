@@ -20,7 +20,9 @@
         "amountOfWaterPromptHeader": "Enter your daily amount of water",
         "languageSettings": "LanguageSettings",
         "changeLanguage": "Change language",
-        "language": "Language"
+        "language": "Language",
+        "removeAllData": "Remove All Data",
+        "removedAllData": "All data removed."
     },
     "today": {
         "today": "Today",

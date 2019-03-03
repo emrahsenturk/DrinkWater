@@ -100,4 +100,38 @@ export class SettingsPage {
     this.storage.set('language', this.selectedLanguage);
   }
 
+  calculation(){
+    this.toast.showSuccessToast('Calculation is not ready now!');
+  }
+
+  async removeAllData(){
+    const alert = await this.alertController.create({
+      header: this.translate.instant('global.confirm'),
+      message: this.translate.instant('global.confirmMessage'),
+      buttons: [
+        {
+          text: this.translate.instant('global.cancel'),
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            alert.dismiss(false);
+          }
+        }, {
+          text: this.translate.instant('global.confirm'),
+          handler: () => {
+            alert.dismiss(true);
+            this.storage.forEach( (value, key, index) => {
+              if(key.startsWith('drinkValues_')){
+                this.storage.remove(key);
+              }
+            });
+            this.toast.showSuccessToast(this.translate.instant('settings.removedAllData'));
+          }
+        }
+      ]
+    });
+    
+    alert.present();
+  }
+
 }

@@ -21,7 +21,7 @@
         {{amountOfWaterDaily}} ML
       </ion-label>
     </ion-item>
-    <ion-item (click)="buttonClick()" detail>
+    <ion-item (click)="calculation()" detail>
       <ion-label>{{ 'settings.dailyWaterRequirementCalculation' | translate }}</ion-label>
     </ion-item>
   </ion-list>
@@ -35,6 +35,15 @@
       <ion-select [(ngModel)]="selectedLanguage" (ionChange)="changeLanguage()" [interfaceOptions]="customActionSheetOptions" cancelText="{{ 'global.cancel' | translate }}" interface="action-sheet" placeholder="{{ 'settings.changeLanguage' | translate }}">
         <ion-select-option *ngFor="let item of languages" [value]="item.value">{{item.text}}</ion-select-option>
       </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header color="light">
+      <ion-label>{{ 'settings.removeAllData' | translate }}</ion-label>
+    </ion-list-header>
+    <ion-item color="danger" (click)="removeAllData()" detail>
+      <ion-label color="light">{{ 'settings.removeAllData' | translate }}</ion-label>
     </ion-item>
   </ion-list>
 

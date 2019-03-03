@@ -55,7 +55,7 @@ export class DrinkWaterPage {
   @ViewChild('doughnutCanvas') doughnutCanvas : any;
   doughnutChart: any;
 
-  ngOnInit(){
+  ionViewWillEnter(){
     this.getChartsData();
   }
 
@@ -172,18 +172,5 @@ export class DrinkWaterPage {
     
     alert.present();
   }
-
-  // async showSuccessToast(message:string){
-  //   const toast = await this.toastController.create({
-  //     message: message,
-  //     showCloseButton: true,
-  //     position: 'top',
-  //     closeButtonText: this.translate.instant('global.close'),
-  //     duration: 3000,
-  //     animated: true,
-  //     color: "primary"
-  //   });
-  //   toast.present();
-  // }
 
 }
