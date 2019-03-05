@@ -7,7 +7,8 @@
         "manuel": "Manual",
         "howMuchWater": "How much water did you drink?",
         "remaining": "remaning",
-        "drinking": "drinking"
+        "drinking": "drinking",
+        "addDrinkValueToPast": "Add Drink To Past"
     },
     "analysis" : {
         "analysis": "Analysis"
@@ -34,11 +35,18 @@
         "close": "Close",
         "save": "Save",
         "confirmMessage": "Do you confirm this transaction?",
-        "saveMessage": "Saved..."
+        "saveMessage": "Saved...",
+        "missingData": "Missing data!"
     },
     "tabs": {
         "drinkWater": "Drink Water",
         "analysis": "Analysis",
         "settings": "Settings"
+    },
+    "addDrinkToPast": {
+        "addDrinkToPast": "Add Drink To Past",
+        "date": "Date",
+        "amount": "Amount",
+        "selectDate": "Select date.."
     }
 }

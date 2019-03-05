@@ -8,6 +8,7 @@ import { ChartsModule } from 'ng2-charts';
 import { TranslateModule } from '@ngx-translate/core';
 import { DrinkValue } from '../objects/drinkValue';
 import { ToastService } from '../crossCutting/toast/toast';
+import { AddDrinkToPastModalModule } from '../modals/addDrinkToPastModal/addDrinkToPast.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { ToastService } from '../crossCutting/toast/toast';
     ChartsModule,
     RouterModule.forChild([{ path: '', component: DrinkWaterPage }]),
     TranslateModule,
+    AddDrinkToPastModalModule
   ],
   declarations: [DrinkWaterPage],
   providers: [

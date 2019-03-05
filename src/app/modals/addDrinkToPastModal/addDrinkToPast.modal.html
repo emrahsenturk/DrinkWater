@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="dark" (click)="myDismiss()">
+                <ion-icon name="arrow-back"></ion-icon>
+                </ion-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-icon name="water"></ion-icon>
+            {{ 'addDrinkToPast.addDrinkToPast' | translate }}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+  
+<ion-content>
+
+    <ion-list>
+        <ion-item>
+            <ion-label>{{ 'addDrinkToPast.date' | translate }}</ion-label>
+            <ion-datetime placeholder="{{ 'addDrinkToPast.selectDate' | translate }}" display-format="DD MMMM YYYY HH:mm" [min]="minDate" [max]="maxDate" [(ngModel)]="selectedDate"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>{{ 'addDrinkToPast.amount' | translate }}</ion-label>
+            <ion-input type="tel" [(ngModel)]="enteredAmount" text-end></ion-input>
+            &nbsp;
+            <ion-label size="small" text-end>ML</ion-label>
+        </ion-item>
+        <ion-item color="primary" (click)="saveDrinkToPast()" detail>
+            <ion-label>
+                {{ 'global.confirm' | translate }}
+            </ion-label>
+        </ion-item>
+    </ion-list>
+ 
+</ion-content>

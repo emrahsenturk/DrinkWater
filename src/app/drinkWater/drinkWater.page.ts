@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonSelect, ToastController, AlertController, NavController } from '@ionic/angular';
+import { IonSelect, ToastController, AlertController, NavController, ModalController } from '@ionic/angular';
 import { Chart } from 'chart.js';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Device } from '@ionic-native/device/ngx';
@@ -7,6 +7,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { DrinkValue } from '../objects/drinkValue';
 import { Storage } from '@ionic/storage';
 import { ToastService } from '../crossCutting/toast/toast';
+import * as moment from 'moment';
+import { AddDrinkToPastModal } from '../modals/addDrinkToPastModal/addDrinkToPast.modal';
 
 @Component({
   selector: 'app-drinkWater',
@@ -24,12 +26,14 @@ export class DrinkWaterPage {
     public translate: TranslateService,
     private storage: Storage,
     private drinkValue : DrinkValue,
-    private toast: ToastService
+    private toast: ToastService,
+    private modalController: ModalController
   ) {}
 
   dbList: any;
   allDrinkingToday: number = 0;
   allRemainigToday: number = 0; 
+  todayDate: string = "";
 
   customSelectDrinkHeaderOptions: any = {
     header: this.translate.instant('drinkWater.howMuchWater'),
@@ -56,6 +60,7 @@ export class DrinkWaterPage {
   doughnutChart: any;
 
   ionViewWillEnter(){
+    this.todayDate = moment(new Date()).format('L');
     this.getChartsData();
   }
 
@@ -111,9 +116,7 @@ export class DrinkWaterPage {
     let alert = await this.confirm(value);
   }
 
-  saveDrink(value : number){
-    let saveDate = new Date();
-
+  saveDrink(value : number, saveDate: Date){
     this.drinkValue = {
       UserId: this.device.uuid,
       Value: value,
@@ -136,6 +139,21 @@ export class DrinkWaterPage {
 
   async changeSelectedDrinkValue(){
     await this.confirm(this.selectedChoice);
+  }
+
+  async addDrinkValueToPast(){
+    const modal: HTMLIonModalElement =
+       await this.modalController.create({
+          component: AddDrinkToPastModal
+    });
+     
+    modal.onDidDismiss().then((obj: any) => {
+       if (obj !== null && obj.data.success) {
+         this.saveDrink(Number(obj.data.amount), new Date(obj.data.date));
+       }
+    });
+    
+    await modal.present();
   }
 
   openTodayDrinkList(){
@@ -164,7 +182,7 @@ export class DrinkWaterPage {
           handler: () => {
             alert.dismiss(true);
             this.selectedChoice = "";
-            this.saveDrink(value);
+            this.saveDrink(value, new Date());
           }
         }
       ]

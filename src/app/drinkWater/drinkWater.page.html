@@ -23,10 +23,6 @@
     <ion-card-header>
       <ion-card-title>
         {{ 'drinkWater.drinkWater' | translate }}
-        <ion-button color="light" size="small" (click)="openTodayDrinkList()">
-          <ion-ripple-effect></ion-ripple-effect>
-          {{ 'drinkWater.amountOfWaterForDrinkingToday' | translate }}
-        </ion-button>
       </ion-card-title>
     </ion-card-header>
 
@@ -67,6 +63,24 @@
                   {{item.text}}
                 </ion-select-option>
               </ion-select>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button color="light" size="small" expand="full" (click)="openTodayDrinkList()">
+              <ion-ripple-effect></ion-ripple-effect>
+              {{ 'drinkWater.amountOfWaterForDrinkingToday' | translate }} ({{ todayDate }})
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button color="dark" size="small" expand="full" (click)="addDrinkValueToPast()">
+              <ion-ripple-effect></ion-ripple-effect>
+              <ion-icon name="add"></ion-icon>
+              &nbsp;
+              {{ 'drinkWater.addDrinkValueToPast' | translate }}
+            </ion-button>
           </ion-col>
         </ion-row>
     </ion-card-content>

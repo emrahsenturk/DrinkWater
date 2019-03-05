@@ -7,7 +7,8 @@
         "manuel": "Elle Seçin",
         "howMuchWater": "Ne kadar su içtiniz?",
         "remaining": "kalan",
-        "drinking": "içilen"
+        "drinking": "içilen",
+        "addDrinkValueToPast": "Geçmişe Su Girişi Yap"
     },
     "analysis" : {
         "analysis": "Analiz"
@@ -34,11 +35,18 @@
         "close": "Kapat",
         "save": "Kaydet",
         "confirmMessage": "Yapılan işlemi onaylıyor musunuz?",
-        "saveMessage": "Kaydedildi..."
+        "saveMessage": "Kaydedildi...",
+        "missingData": "Eksik veri girdiniz!"
     },
     "tabs": {
         "drinkWater": "Su İç",
         "analysis": "Analiz",
         "settings": "Ayarlar"
+    },
+    "addDrinkToPast": {
+        "addDrinkToPast": "Geçmiş Tarihe Su Ekle",
+        "date": "Tarih",
+        "amount": "Miktar",
+        "selectDate": "Tarih seçin.."
     }
 }
